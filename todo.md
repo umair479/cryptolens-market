@@ -24,3 +24,17 @@
 - [x] Add durable server-side secret handling documentation and clarify that exchange API secrets must not be committed or sent to the browser.
 - [x] Add a second read-only exchange-specific feed from Coinbase public products alongside the Binance public ticker.
 - [x] Show provider/source and freshness context across global market, category, and exchange routes.
+
+## Coin Detail and Screening Expansion
+
+- [x] Decide to use the existing project database for this release and leave the inactive Supabase project untouched.
+- [x] Document the optional future Supabase migration without adding a second database to this release.
+- [x] Add existing-database support for persistent coin research metadata and screening states, with unknown as the safe default until curated research is available.
+- [x] Make every live market ranking row open a dedicated React coin detail page.
+- [x] Show live price, market cap, volume, rank, 24-hour movement, chart context, and exchange/source links on coin pages.
+- [x] Add an educational Islamic-ethics screening framework with transparent criteria, evidence state, and a non-binding disclosure.
+- [x] Keep the implementation in React and JavaScript/TypeScript, with no additional runtime language required.
+- [x] Test data persistence, coin routing, live-data fallbacks, and responsive detail pages before delivery.
+- [x] Link the reusable market-row coin identity to the React detail route across rankings, movers, and watchlist cards.
+- [x] Persist and retrieve one non-binding Bitcoin research record through the existing database to verify the data path.
+- [x] Verify the unknown-asset recovery state shows a clear Back to markets action and a Retry control.

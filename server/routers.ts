@@ -1,4 +1,6 @@
 import { COOKIE_NAME } from "@shared/const";
+import { z } from "zod";
+import { getCoinDetail } from "./coinDetail";
 import { getCategories, getExchanges, getMarketSnapshot } from "./marketData";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
@@ -21,6 +23,7 @@ export const appRouter = router({
     snapshot: publicProcedure.query(() => getMarketSnapshot()),
     categories: publicProcedure.query(() => getCategories()),
     exchanges: publicProcedure.query(() => getExchanges()),
+    coin: publicProcedure.input(z.object({ id: z.string().min(1).max(128).regex(/^[a-z0-9-]+$/) })).query(({ input }) => getCoinDetail(input.id)),
   }),
 });
 

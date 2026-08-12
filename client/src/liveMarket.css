@@ -92,6 +92,73 @@
 .mini-pair-list .change-value { font-size: 8px; }
 .ranking-loading > span { height: 10px; border-radius: 99px; background: linear-gradient(90deg, #f3f6f9, #e7edf3, #f3f6f9); }
 .ranking-loading > span:nth-child(2) { height: 24px; width: 68%; }
+.movement-asset { color: inherit; text-decoration: none; }
+.movement-asset:hover strong { color: var(--blue); }
+.ranking-asset-link { min-width: 0; color: inherit; text-decoration: none; }
+.ranking-asset-link:hover strong { color: var(--blue); }
+.coin-detail-page { padding-top: 25px; }
+.detail-back { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 19px; color: #72849a; font-size: 11px; font-weight: 600; text-decoration: none; }
+.detail-back:hover { color: var(--blue); }
+.coin-detail-hero { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; border: 1px solid #dce5f1; border-radius: 12px; background: linear-gradient(120deg, #ffffff, #f7f9ff 55%, #eaf7ff); padding: 24px; }
+.coin-detail-identity { display: flex; align-items: center; gap: 16px; min-width: 0; }
+.detail-coin-logo { display: inline-flex; height: 58px; width: 58px; flex: 0 0 auto; align-items: center; justify-content: center; border: 1px solid #dbe3ec; border-radius: 16px; background: #ffffff; color: var(--blue); font-family: "Sora", sans-serif; font-size: 24px; font-weight: 700; }
+.detail-coin-logo img { height: 37px; width: 37px; object-fit: contain; }
+.coin-detail-hero h1 { margin: 5px 0 8px; color: #142b44; font-size: clamp(28px, 3.4vw, 42px); font-weight: 600; letter-spacing: -0.07em; }
+.coin-detail-hero h1 span { color: #8192a6; font-family: "IBM Plex Mono", monospace; font-size: 13px; font-weight: 500; letter-spacing: 0; }
+.detail-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+.detail-tags span { border: 1px solid #dbe4ef; border-radius: 99px; background: rgba(255,255,255,0.8); padding: 4px 7px; color: #687d94; font-size: 9px; }
+.detail-price { display: flex; min-width: 150px; flex-direction: column; align-items: flex-end; }
+.detail-price > span { color: #7b8da1; font-family: "IBM Plex Mono", monospace; font-size: 9px; text-transform: uppercase; }
+.detail-price > strong { margin: 5px 0; color: #102940; font-family: "Sora", sans-serif; font-size: 29px; letter-spacing: -0.07em; }
+.detail-price small { margin-top: 7px; color: #8494a5; font-size: 9px; }
+.coin-detail-grid { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 14px; margin-top: 14px; }
+.coin-detail-main { display: grid; gap: 14px; }
+.detail-chart-card, .detail-about-card, .supply-card, .screening-card { border: 1px solid var(--line); border-radius: 11px; background: #ffffff; padding: 20px; box-shadow: 0 2px 8px rgba(35,52,77,0.025); }
+.detail-card-head, .screening-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; }
+.detail-card-head h2, .screening-head h2 { margin: 6px 0 0; color: #20374f; font-size: 20px; font-weight: 600; letter-spacing: -0.06em; }
+.detail-sparkline { height: 200px; width: 100%; margin-top: 6px; overflow: visible; }
+.detail-chart-caption { display: flex; justify-content: space-between; border-top: 1px solid #edf1f5; padding-top: 11px; color: #91a0af; font-family: "IBM Plex Mono", monospace; font-size: 8px; }
+.detail-metrics-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.detail-metrics-grid article { border: 1px solid var(--line); border-radius: 9px; background: #ffffff; padding: 14px; }
+.detail-metrics-grid span { display: block; color: #8b9aaa; font-size: 9px; }
+.detail-metrics-grid strong { display: block; margin: 7px 0 4px; color: #263c54; font-family: "Sora", sans-serif; font-size: 16px; letter-spacing: -0.05em; }
+.detail-metrics-grid small { color: #9aa7b5; font-family: "IBM Plex Mono", monospace; font-size: 8px; }
+.detail-about-card p { margin: 15px 0; color: #657a90; font-size: 12px; line-height: 1.65; }
+.external-link, .blockchain-link, .screening-source { display: inline-flex; align-items: center; gap: 5px; color: var(--blue); font-size: 10px; font-weight: 600; text-decoration: none; }
+.blockchain-link { border-top: 1px solid #edf1f5; padding-top: 11px; color: #5c7490; }
+.coin-detail-side { min-width: 0; }
+.supply-card { margin-bottom: 14px; }
+.supply-card > div { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid #edf1f5; padding: 13px 0; }
+.supply-card > div span { color: #8191a2; font-size: 10px; }
+.supply-card > div strong { color: #2d455d; font-family: "IBM Plex Mono", monospace; font-size: 10px; font-weight: 500; text-align: right; }
+.supply-card p { display: flex; gap: 6px; margin: 14px 0 0; color: #8a9aa9; font-size: 9px; line-height: 1.5; }
+.screening-card { border-color: #d8e4f0; background: linear-gradient(155deg, #ffffff, #f3f8ff); }
+.screening-head { color: var(--blue); }
+.screening-status { display: inline-flex; border: 1px solid #e4d6a6; border-radius: 99px; background: #fff9e8; margin-top: 15px; padding: 5px 8px; color: #9c741e; font-family: "IBM Plex Mono", monospace; font-size: 8px; text-transform: uppercase; }
+.screening-status.higher_risk_flags { border-color: #f1c8c3; background: #fff4f3; color: #c05850; }
+.screening-disclaimer { border-left: 2px solid #7899ff; margin: 14px 0; padding-left: 9px; color: #657a91; font-size: 10px; line-height: 1.55; }
+.screening-copy { border-top: 1px solid #dfe8f1; padding-top: 13px; }
+.screening-copy h3 { margin: 0 0 6px; color: #334d65; font-size: 12px; }
+.screening-copy p { margin: 7px 0; color: #6c8095; font-size: 10px; line-height: 1.55; }
+.screening-state-grid { display: grid; gap: 5px; margin-top: 15px; }
+.screening-state { display: flex; align-items: center; justify-content: space-between; gap: 8px; border: 1px solid #dfe8f1; border-radius: 6px; background: rgba(255,255,255,0.76); padding: 8px; }
+.screening-state span { color: #718499; font-size: 9px; }
+.screening-state strong { border-radius: 99px; padding: 3px 5px; font-family: "IBM Plex Mono", monospace; font-size: 7px; text-transform: uppercase; }
+.screening-state strong.is-unknown { background: #f0f3f6; color: #748496; }
+.screening-state strong.is-document { background: #e8f7f0; color: #16835a; }
+.screening-state strong.is-caution { background: #fff1ef; color: #c45a51; }
+.screening-evidence { display: flex; gap: 7px; border-top: 1px solid #dfe8f1; margin-top: 14px; padding-top: 13px; color: #5e82bc; }
+.screening-evidence p { margin: 0; color: #718397; font-size: 9px; line-height: 1.5; }
+.screening-source { margin-top: 13px; }
+.detail-loading { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 35px; }
+.detail-loading > span { min-height: 160px; border: 1px solid var(--line); border-radius: 11px; background: linear-gradient(90deg, #f3f6f9, #e7edf3, #f3f6f9); }
+.detail-error { display: flex; min-height: 470px; flex-direction: column; align-items: center; justify-content: center; border: 1px dashed #d2dce8; border-radius: 11px; background: #ffffff; color: #6e8296; text-align: center; }
+.detail-error h1 { margin: 15px 0 6px; color: #213950; font-size: 24px; letter-spacing: -0.05em; }
+.detail-error p { max-width: 410px; margin: 0; color: #73859a; font-size: 12px; }
+.detail-error > div { display: flex; gap: 8px; margin-top: 18px; }
+@media (max-width: 1000px) { .coin-detail-grid { grid-template-columns: 1fr; } .coin-detail-side { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 14px; } .supply-card { margin-bottom: 0; } }
+@media (max-width: 720px) { .coin-detail-hero { align-items: flex-start; flex-direction: column; padding: 18px; } .detail-price { align-items: flex-start; } .detail-metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .coin-detail-side { grid-template-columns: 1fr; } .detail-sparkline { height: 145px; } }
+@media (max-width: 460px) { .coin-detail-identity { align-items: flex-start; gap: 11px; } .detail-coin-logo { height: 46px; width: 46px; border-radius: 12px; } .detail-coin-logo img { height: 30px; width: 30px; } .coin-detail-hero h1 { font-size: 29px; } .detail-chart-caption { gap: 8px; flex-direction: column; } .detail-error > div { flex-direction: column; } }
 @media (max-width: 1050px) { .category-grid, .exchange-grid, .learn-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 760px) { .data-page { padding: 25px 15px 35px; } .data-page-head { align-items: flex-start; flex-direction: column; gap: 15px; } .category-grid, .exchange-grid, .learn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .exchange-hero-grid { grid-template-columns: 1fr; } .pair-list { grid-template-columns: 1fr; } .learn-hero { padding: 26px 21px; } }
 @media (max-width: 500px) { .category-grid, .exchange-grid, .learn-grid { grid-template-columns: 1fr; } .market-error { align-items: flex-start; flex-wrap: wrap; } .market-error .outline-button { margin-left: 36px; } .data-page-head h1 { font-size: 29px; } }

@@ -17,3 +17,7 @@ The server caches upstream responses for approximately 55 seconds. This protects
 ## Security checklist
 
 Rotate any credential that was posted in chat or source control. Use least-privilege, read-only credentials where credentials are ever needed. Never include a private key, exchange API secret, or account-level API key in frontend code.
+
+## Current persistence choice
+
+The current release uses the project’s existing database for curated coin research and educational screening records. Supabase was intentionally left inactive to avoid maintaining two databases. A future migration can move this table to Supabase after a deliberate provider change.

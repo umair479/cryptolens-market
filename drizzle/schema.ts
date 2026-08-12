@@ -25,4 +25,26 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+/**
+ * Curated, educational context for a coin detail page. Live market prices remain
+ * upstream-provider data; this table only stores editorial and screening metadata.
+ */
+export const coinResearch = mysqlTable("coin_research", {
+  id: int("id").autoincrement().primaryKey(),
+  coinId: varchar("coinId", { length: 128 }).notNull().unique(),
+  displayName: varchar("displayName", { length: 160 }).notNull(),
+  summary: text("summary"),
+  assetBacking: text("assetBacking"),
+  utilitySummary: text("utilitySummary"),
+  interestExposure: mysqlEnum("interestExposure", ["unknown", "none_stated", "present"]).default("unknown").notNull(),
+  speculationExposure: mysqlEnum("speculationExposure", ["unknown", "low", "elevated"]).default("unknown").notNull(),
+  transparencyState: mysqlEnum("transparencyState", ["unknown", "limited", "documented"]).default("unknown").notNull(),
+  screeningStatus: mysqlEnum("screeningStatus", ["needs_scholar_review", "research_incomplete", "higher_risk_flags"]).default("needs_scholar_review").notNull(),
+  evidenceNote: text("evidenceNote"),
+  sourceUrl: varchar("sourceUrl", { length: 500 }),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CoinResearch = typeof coinResearch.$inferSelect;
+export type InsertCoinResearch = typeof coinResearch.$inferInsert;

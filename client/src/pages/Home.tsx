@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { ArrowDownRight, ArrowUpRight, ChevronDown, ChevronRight, CircleHelp, Filter, LineChart, RefreshCw, Search, Star, TrendingUp } from "lucide-react";
 import { toast } from "sonner";
+import { Link } from "wouter";
 import { MarketFooter } from "@/components/MarketFooter";
 import { MarketHeader } from "@/components/MarketHeader";
 import { formatCompactUsd, formatPercent, formatUpdated, formatUsd } from "@/lib/marketFormat";
@@ -23,11 +24,11 @@ function ChangeValue({ value }: { value: number }) {
 }
 
 function CoinGlyph({ coin, small = false }: { coin: LiveCoin; small?: boolean }) {
-  return <span className={`coin-glyph ${small ? "coin-glyph-small" : ""}`}>{coin.image ? <img src={coin.image} alt="" /> : coin.symbol.slice(0, 1)}</span>;
+  return <Link href={`/coin/${coin.id}`} className={`coin-glyph ${small ? "coin-glyph-small" : ""}`} aria-label={`Open ${coin.name} details`}>{coin.image ? <img src={coin.image} alt="" /> : coin.symbol.slice(0, 1)}</Link>;
 }
 
 function MoverCard({ title, subtitle, coins, tone, onOpen }: { title: string; subtitle: string; coins: LiveCoin[]; tone: "positive" | "negative"; onOpen: () => void }) {
-  return <article className="movement-card"><div className="movement-card-head"><div><span className={`movement-indicator ${tone}`} /> <span className="card-overline">{title}</span><p>{subtitle}</p></div><button className="card-link" onClick={onOpen}>Top 20 <ChevronRight size={14} /></button></div><div className="movement-list">{coins.slice(0, 4).map((coin, index) => <div className="movement-row" key={coin.id}><span className="movement-rank">{String(index + 1).padStart(2, "0")}</span><CoinGlyph coin={coin} small /><div className="movement-asset"><strong>{coin.symbol}</strong><span>{coin.name}</span></div><span className="movement-price">{formatUsd(coin.price)}</span><Sparkline values={coin.sparkline} tone={tone} /><ChangeValue value={coin.change24h} /></div>)}</div></article>;
+  return <article className="movement-card"><div className="movement-card-head"><div><span className={`movement-indicator ${tone}`} /> <span className="card-overline">{title}</span><p>{subtitle}</p></div><button className="card-link" onClick={onOpen}>Top 20 <ChevronRight size={14} /></button></div><div className="movement-list">{coins.slice(0, 4).map((coin, index) => <div className="movement-row" key={coin.id}><span className="movement-rank">{String(index + 1).padStart(2, "0")}</span><CoinGlyph coin={coin} small /><Link href={`/coin/${coin.id}`} className="movement-asset"><strong>{coin.symbol}</strong><span>{coin.name}</span></Link><span className="movement-price">{formatUsd(coin.price)}</span><Sparkline values={coin.sparkline} tone={tone} /><ChangeValue value={coin.change24h} /></div>)}</div></article>;
 }
 
 export default function Home() {
