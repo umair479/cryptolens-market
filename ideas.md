@@ -81,3 +81,11 @@ The mark is a faceted lens aperture intersected by a rising candlestick: a visua
 - The first viewport now leads with a live market snapshot, sync time, and market figures before the supporting headline.
 - Main ranking rows now combine market cap and volume context with a consistent micro-sparkline rhythm.
 - Instrument-native action language is preferred: “Scan the radar,” “Pin this brief,” and “Read the pulse.”
+
+## Revision: Market Ledger Light
+
+The user's latest requirement overrides the earlier Nocturne Ledger palette: CryptoLens Market now uses a bright, CoinMarketCap-inspired market surface while keeping its own mark, typography, signal language, and content hierarchy. The goal is familiar exchange-style scanability without copying another product's exact chrome.
+
+The active design movement is **lightweight financial information design**: white data surfaces, soft gray page background, dark navy type, concise mono metadata, and a restrained blue action color. Positive 24-hour performance uses teal, negative performance uses coral, and coin identities retain their own muted brand colors. The layout prioritizes a compact market ticker, total market cap, summary metrics, top gainers, top decliners, market insight, and a wide ranking table.
+
+The revised signature elements are the faceted CryptoLens mark in the header and footer, compact 7-day sparklines in every ranking view, and movement cards that make the 24-hour leaderboard immediately legible. Typography remains Sora for display values, IBM Plex Mono for tickers and metric labels, and DM Sans for navigation and explanations. The voice stays observant and research-led, while the surface becomes brighter and more familiar for everyday market scanning.
