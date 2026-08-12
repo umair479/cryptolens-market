@@ -7,11 +7,20 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Categories from "./pages/Categories";
+import Exchanges from "./pages/Exchanges";
+import Learn from "./pages/Learn";
+import Watchlist from "./pages/Watchlist";
 
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/categories" component={Categories} />
+      <Route path="/exchanges" component={Exchanges} />
+      <Route path="/learn" component={Learn} />
+      <Route path="/watchlist" component={Watchlist} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
