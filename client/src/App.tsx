@@ -12,6 +12,7 @@ import Exchanges from "./pages/Exchanges";
 import Learn from "./pages/Learn";
 import Watchlist from "./pages/Watchlist";
 import CoinDetail from "./pages/CoinDetail";
+import Account from "./pages/Account";
 
 function Router() {
   // make sure to consider if you need authentication for certain routes
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/exchanges" component={Exchanges} />
       <Route path="/learn" component={Learn} />
       <Route path="/watchlist" component={Watchlist} />
+      <Route path="/account" component={Account} />
       <Route path="/coin/:id" component={CoinDetail} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />

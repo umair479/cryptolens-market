@@ -10,7 +10,7 @@ import { Link } from "wouter";
 const mark = "/manus-storage/cryptolens-mark_3a6b7471.png";
 
 type MarketHeaderProps = {
-  active: "market" | "categories" | "exchanges" | "learn" | "watchlist";
+  active: "market" | "categories" | "exchanges" | "learn" | "watchlist" | "account";
   watchCount?: number;
   search?: string;
   onSearchChange?: (value: string) => void;
@@ -45,7 +45,7 @@ export function MarketHeader({ active, watchCount = 0, search, onSearchChange }:
           <label className="global-search"><Search size={16} /><input value={search ?? ""} onChange={(event) => onSearchChange?.(event.target.value)} placeholder="Search coins" aria-label="Search cryptocurrencies" disabled={!onSearchChange} /></label>
           <button className="header-icon" onClick={() => toast("No new alerts", { description: "Live provider status is displayed within each market view." })} aria-label="Notifications"><Bell size={17} /></button>
           <button className="header-icon" onClick={() => toast("Portfolio tools are coming soon")} aria-label="Portfolio"><WalletCards size={17} /></button>
-          {isAuthenticated ? <div className="account-control"><button className="account-button" onClick={() => setAccountOpen((current) => !current)} aria-expanded={accountOpen} aria-label="Open account menu"><span className="account-avatar">{user?.name?.slice(0, 1).toUpperCase() || <UserRound size={14} />}</span><span>{user?.name?.split(" ")[0] || "Account"}</span></button>{accountOpen && <div className="account-menu"><span>Signed in with Manus</span><Link href="/watchlist" onClick={() => setAccountOpen(false)}><Bookmark size={13} /> Saved assets</Link><button onClick={() => { setAccountOpen(false); void logout(); }}><LogOut size={13} /> Sign out</button></div>}</div> : <button className="header-button" onClick={startLogin} disabled={loading}>Sign in</button>}
+          {isAuthenticated ? <div className="account-control"><button className="account-button" onClick={() => setAccountOpen((current) => !current)} aria-expanded={accountOpen} aria-label="Open account menu"><span className="account-avatar">{user?.name?.slice(0, 1).toUpperCase() || <UserRound size={14} />}</span><span>{user?.name?.split(" ")[0] || "Account"}</span></button>{accountOpen && <div className="account-menu"><span>Signed in with Manus</span><Link href="/account" onClick={() => setAccountOpen(false)}><UserRound size={13} /> Account</Link><Link href="/watchlist" onClick={() => setAccountOpen(false)}><Bookmark size={13} /> Saved assets</Link><button onClick={() => { setAccountOpen(false); void logout(); }}><LogOut size={13} /> Sign out</button></div>}</div> : <button className="header-button" onClick={startLogin} disabled={loading}>Sign in</button>}
         </div>
       </div>
     </header>

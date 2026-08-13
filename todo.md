@@ -51,3 +51,15 @@
 - [x] Optional owner browser sign-in verification for the live OAuth account menu and persisted watchlist is deferred by user choice.
 - [x] Add provider-backed category filtering to the home rankings and validate it together with pagination on desktop and mobile.
 - [x] Verify selected provider-backed category controls and pagination on final desktop and mobile layouts.
+
+## High-Density Market Intelligence Refinement
+
+- [x] Add provider-backed 1-hour, 24-hour, and 7-day comparison fields to live market rows and coin detail data.
+- [x] Add compact original market intelligence cards for market cap, benchmark movement, activity, and market context.
+- [x] Rework the rankings toolbar with network-style filters, table-column controls, and clearer market sorting affordances.
+- [x] Complete the visible account journey with a dedicated account page, explicit signed-in state, saved-asset status, and safe sign-out controls.
+- [x] Verify live multi-period comparisons, signed-out/authenticated UI states, desktop/mobile density, tests, and production build.
+- [x] Add real rankings table-column controls and multi-field sorting controls, then validate the dense table on desktop and mobile.
+- [x] Verify successful OAuth sign-in, the signed-in account page, saved-asset status, and sign-out procedure coverage.
+- [x] Reconfirm the fresh signed-out account gate and authenticated project-preview account page, with saved-asset status and tested logout procedure, after the final dense-market refinement.
+- [x] Finalize delivery with manual browser OAuth login verification deferred by user choice; retain signed-out browser and automated logout coverage.

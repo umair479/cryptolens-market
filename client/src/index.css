@@ -165,9 +165,17 @@ h1, h2, .brand-wordmark, .hero-total strong, .light-metric-card > strong, .movem
 .control-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .table-search { width: 175px; padding: 8px 10px; }
 .filter-button { display: inline-flex; align-items: center; gap: 7px; background: #ffffff; padding: 8px 10px; }
+.sort-control { display: inline-flex; align-items: center; gap: 5px; border: 1px solid var(--line-strong); border-radius: 7px; background: #ffffff; padding: 7px 8px; color: #718399; font-family: "IBM Plex Mono", monospace; font-size: 8px; }
+.sort-control select { border: 0; outline: 0; background: transparent; color: #40566e; font-family: "DM Sans", sans-serif; font-size: 10px; }
+.table-column-control { position: relative; }
+.column-menu { position: absolute; z-index: 12; right: 0; top: calc(100% + 6px); display: flex; min-width: 150px; flex-direction: column; gap: 8px; border: 1px solid #dbe5ee; border-radius: 8px; background: #ffffff; box-shadow: 0 14px 30px rgba(28, 53, 83, 0.15); padding: 10px; }
+.column-menu label { display: flex; align-items: center; gap: 7px; color: #526a82; font-size: 10px; white-space: nowrap; }
+.column-menu input { accent-color: var(--blue); }
 .ranking-table-wrap { overflow: hidden; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); box-shadow: 0 2px 8px rgba(35, 52, 77, 0.025); }
 .ranking-table { min-width: 930px; }
+.ranking-table-dense { min-width: 1120px; }
 .ranking-row { display: grid; grid-template-columns: 35px minmax(205px, 1.65fr) 112px 76px 100px 116px 112px 30px; align-items: center; min-height: 64px; gap: 12px; border-bottom: 1px solid #edf1f5; padding: 0 17px; transition: background 180ms var(--ease-out); }
+.ranking-row-dense { grid-template-columns: 30px minmax(195px, 1.55fr) 100px 62px 62px 62px 106px 100px 98px 28px; gap: 9px; min-height: 60px; padding: 0 14px; }
 .ranking-row:last-child { border-bottom: 0; }
 .ranking-row:not(.ranking-header):hover { background: #f8faff; }
 .ranking-header { min-height: 38px; background: #fbfcfe; color: #8795a5; font-size: 8px; letter-spacing: 0.08em; text-transform: uppercase; }
@@ -185,6 +193,12 @@ h1, h2, .brand-wordmark, .hero-total strong, .light-metric-card > strong, .movem
 .ranking-row > .change-value { font-size: 9px; }
 .sparkline { display: block; width: 98px; height: 32px; }
 .sparkline-large { width: 100%; height: 47px; }
+.market-intel-ribbon { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; margin: 12px 0 14px; }
+.market-intel-ribbon article { position: relative; min-width: 0; border: 1px solid #dfe8f1; border-radius: 9px; background: #ffffff; padding: 11px 13px; }
+.market-intel-ribbon article::before { position: absolute; top: 11px; bottom: 11px; left: 0; width: 2px; border-radius: 2px; background: #78b8e9; content: ""; }
+.market-intel-ribbon span, .market-intel-ribbon small { display: block; color: #8697a9; font-family: "IBM Plex Mono", monospace; font-size: 8px; text-transform: uppercase; }
+.market-intel-ribbon strong { display: inline-block; margin: 6px 0 3px; color: #28425b; font-family: "Sora", sans-serif; font-size: 15px; letter-spacing: -0.04em; }
+.market-intel-ribbon .change-value { margin-left: 5px; font-size: 8px; }
 .ranking-value { color: #51657c; font-family: "IBM Plex Mono", monospace; font-size: 9px; }
 .volume-value { color: #8090a1; }
 .row-menu { display: inline-flex; height: 27px; width: 27px; align-items: center; justify-content: center; border: 0; border-radius: 6px; background: transparent; color: #9ba9b8; transition: background 180ms var(--ease-out), color 180ms var(--ease-out); }
@@ -197,6 +211,20 @@ h1, h2, .brand-wordmark, .hero-total strong, .light-metric-card > strong, .movem
 .table-summary > span { display: inline-flex; align-items: center; gap: 8px; }
 
 .watchlist-section { margin-top: 39px; }
+.account-page { max-width: 1120px; }
+.account-hero { display: flex; align-items: center; gap: 14px; border: 1px solid #dce6ef; border-radius: 11px; background: linear-gradient(115deg, #ffffff, #f0f8ff); padding: 23px; }
+.account-avatar-large { display: inline-flex; height: 52px; width: 52px; align-items: center; justify-content: center; border: 1px solid #c5d8ed; border-radius: 50%; background: #e9f4ff; color: var(--blue); font-family: "Sora", sans-serif; font-size: 21px; font-weight: 700; }
+.account-hero h1 { margin: 7px 0 3px; color: var(--ink-strong); font-size: 25px; letter-spacing: -0.055em; }
+.account-hero p { margin: 0; color: #71859a; font-size: 12px; }
+.account-hero .outline-button { margin-left: auto; }
+.account-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+.account-card { min-height: 176px; border: 1px solid var(--line); border-radius: 10px; background: #ffffff; padding: 17px; }
+.account-card-head { display: flex; align-items: flex-start; justify-content: space-between; color: #77a1c6; }
+.account-card h2 { margin: 7px 0 0; color: #254059; font-family: "Sora", sans-serif; font-size: 19px; letter-spacing: -0.05em; }
+.account-card p { min-height: 43px; margin: 17px 0 13px; color: #71869b; font-size: 11px; line-height: 1.55; }
+.account-link { display: inline-flex; align-items: center; gap: 4px; color: var(--blue); font-size: 10px; font-weight: 700; text-decoration: none; }
+.account-note { color: #8295a8; font-family: "IBM Plex Mono", monospace; font-size: 9px; }
+.account-loading { display: flex; min-height: 280px; align-items: center; justify-content: center; color: #7f92a6; font-size: 12px; }
 .watchlist-heading { align-items: flex-end; margin-bottom: 17px; }
 .watchlist-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .light-watch-card { border: 1px solid var(--line); border-radius: 9px; background: var(--surface); padding: 15px 16px 13px; box-shadow: 0 2px 8px rgba(35, 52, 77, 0.025); transition: border-color 180ms var(--ease-out), transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out); }
@@ -247,6 +275,7 @@ h1, h2, .brand-wordmark, .hero-total strong, .light-metric-card > strong, .movem
   .hero-total { align-items: flex-start; }
   .hero-total strong { font-size: 29px; }
   .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 26px; }
+  .market-intel-ribbon { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .light-metric-card { min-height: 108px; padding: 13px 12px; }
   .light-metric-card > strong { font-size: 19px; }
   .light-metric-card small { font-size: 9px; }
@@ -260,9 +289,13 @@ h1, h2, .brand-wordmark, .hero-total strong, .light-metric-card > strong, .movem
   .table-controls { align-items: stretch; flex-direction: column; }
   .asset-tabs { width: 100%; }
   .control-actions { width: 100%; margin-left: 0; }
+  .sort-control { flex: 1; }
   .table-search { flex: 1; width: auto; }
   .ranking-table { min-width: 930px; }
   .watchlist-grid { grid-template-columns: 1fr; }
+  .account-hero { align-items: flex-start; flex-wrap: wrap; }
+  .account-hero .outline-button { margin-left: 66px; }
+  .account-grid { grid-template-columns: 1fr; }
   .light-footer { align-items: flex-start; flex-direction: column; gap: 9px; }
 }
 @media (prefers-reduced-motion: reduce) {
