@@ -1,4 +1,4 @@
-import { int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { int, mysqlEnum, mysqlTable, text, timestamp, uniqueIndex, varchar } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -48,3 +48,13 @@ export const coinResearch = mysqlTable("coin_research", {
 
 export type CoinResearch = typeof coinResearch.$inferSelect;
 export type InsertCoinResearch = typeof coinResearch.$inferInsert;
+
+/** User-owned saved assets. Price data remains live and is never duplicated here. */
+export const userWatchlistItems = mysqlTable("user_watchlist_items", {
+  id: int("id").autoincrement().primaryKey(),
+  userId: int("userId").notNull(),
+  coinId: varchar("coinId", { length: 128 }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+}, (table) => [uniqueIndex("user_watchlist_coin_unique").on(table.userId, table.coinId)]);
+
+export type UserWatchlistItem = typeof userWatchlistItems.$inferSelect;

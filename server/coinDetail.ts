@@ -17,6 +17,9 @@ type CoinGeckoDetailResponse = {
     price_change_percentage_24h?: number | null;
     price_change_percentage_7d?: number | null;
     market_cap_change_percentage_24h?: number | null;
+    fully_diluted_valuation?: { usd?: number };
+    high_24h?: { usd?: number };
+    low_24h?: { usd?: number };
     circulating_supply?: number | null;
     total_supply?: number | null;
     max_supply?: number | null;
@@ -77,6 +80,9 @@ export async function getCoinDetail(coinId: string) {
       change24h: finite(data?.price_change_percentage_24h),
       change7d: finite(data?.price_change_percentage_7d),
       marketCapChange24h: finite(data?.market_cap_change_percentage_24h),
+      fullyDilutedValuation: finite(data?.fully_diluted_valuation?.usd),
+      high24h: finite(data?.high_24h?.usd),
+      low24h: finite(data?.low_24h?.usd),
       circulatingSupply: data?.circulating_supply ?? null,
       totalSupply: data?.total_supply ?? null,
       maxSupply: data?.max_supply ?? null,

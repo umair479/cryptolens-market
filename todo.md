@@ -38,3 +38,16 @@
 - [x] Link the reusable market-row coin identity to the React detail route across rankings, movers, and watchlist cards.
 - [x] Persist and retrieve one non-binding Bitcoin research record through the existing database to verify the data path.
 - [x] Verify the unknown-asset recovery state shows a clear Back to markets action and a Retry control.
+
+## Comprehensive Market Platform Expansion
+
+- [x] Preserve original CryptoLens branding while adopting the reference screenshots’ dense market-information hierarchy.
+- [x] Expand coin detail pages with broader performance periods, market-cap/volume context, supply progress, price range, and trading links.
+- [x] Add a clear Manus OAuth sign-in, signed-in account state, and persistent authenticated watchlist storage.
+- [x] Add real market-category filtering and explicit pagination controls to the live home rankings.
+- [x] Add an original research-desk module to the public market experience without reproducing third-party editorial content.
+- [x] Expand footer navigation, disclosure, and product-resource information for a client-ready public platform.
+- [x] Verify protected API behavior, signed-out OAuth controls, live market flows, desktop/mobile layouts, tests, and the production build.
+- [x] Optional owner browser sign-in verification for the live OAuth account menu and persisted watchlist is deferred by user choice.
+- [x] Add provider-backed category filtering to the home rankings and validate it together with pagination on desktop and mobile.
+- [x] Verify selected provider-backed category controls and pagination on final desktop and mobile layouts.

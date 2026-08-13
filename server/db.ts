@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { InsertUser, userWatchlistItems, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,22 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+export async function getUserWatchlist(userId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(userWatchlistItems).where(eq(userWatchlistItems.userId, userId)).orderBy(userWatchlistItems.createdAt);
+}
+
+export async function addUserWatchlistItem(userId: number, coinId: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.insert(userWatchlistItems).values({ userId, coinId }).onDuplicateKeyUpdate({ set: { coinId } });
+  return getUserWatchlist(userId);
+}
+
+export async function removeUserWatchlistItem(userId: number, coinId: string) {
+  const db = await getDb();
+  if (!db) throw new Error("Database is not available");
+  await db.delete(userWatchlistItems).where(and(eq(userWatchlistItems.userId, userId), eq(userWatchlistItems.coinId, coinId)));
+  return getUserWatchlist(userId);
+}
