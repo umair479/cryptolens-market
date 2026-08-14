@@ -70,3 +70,14 @@
 - [x] Expand the Learn hub with detailed original research topic cards and structured educational explanations.
 - [x] Add linked research detail routes with readable summaries, key concepts, risk context, and links back to live market views.
 - [x] Verify bold text contrast, research navigation, desktop/mobile layout, tests, and production build before delivery.
+
+## Account Onboarding and Performance Remediation
+
+- [x] Audit the existing Manus OAuth capabilities and present a visible Create account path without making unsupported email-verification claims.
+- [x] Add account onboarding and verification-status messaging that explains the identity provider’s confirmation responsibility.
+- [x] Profile the slow market snapshot and coin-detail calls, including cold and warm response times.
+- [x] Improve server-side provider caching, concurrent request handling, and client stale-data presentation to reduce wait time.
+- [x] Validate sign-up/sign-in states, account messaging, API response timing, tests, and desktop/mobile behavior before delivery.
+- [x] Preserve a recently refreshed market snapshot during the active server process through startup prewarming and stale-while-revalidate caching.
+- [x] Add explicit live-data freshness messaging so users understand when a cached market snapshot is being refreshed.
+- [x] Reverify the project-preview signed-in account interface and saved-asset status after the new onboarding copy changes; manual browser OAuth click-through remains deferred by owner choice.

@@ -82,6 +82,10 @@ h1, h2, .brand-wordmark, .hero-total strong, .light-metric-card > strong, .movem
 .header-icon:hover { background: #f1f4f8; color: var(--ink); }
 .header-icon:active { transform: scale(0.93); }
 .header-button, .outline-button, .filter-button { border: 1px solid var(--line-strong); border-radius: 7px; background: var(--surface); padding: 9px 13px; color: #3c4e63; font-size: 11px; font-weight: 600; transition: background 180ms var(--ease-out), border-color 180ms var(--ease-out), color 180ms var(--ease-out), transform 160ms var(--ease-out); }
+.auth-entry { display: flex; align-items: center; gap: 7px; }
+.header-create { display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--blue); border-radius: 7px; background: var(--blue); padding: 9px 12px; color: #ffffff; font-size: 11px; font-weight: 800; transition: background 180ms var(--ease-out), transform 160ms var(--ease-out); }
+.header-create:hover { background: #294ee0; }
+.header-create:active { transform: scale(0.97); }
 .header-button:hover, .outline-button:hover, .filter-button:hover { border-color: #9eb2ff; color: var(--blue); }
 .header-button:active, .outline-button:active, .filter-button:active { transform: scale(0.97); }
 .mobile-menu-button { display: none; border: 0; background: transparent; color: #3c4e63; }
@@ -225,6 +229,11 @@ h1, h2, .brand-wordmark, .hero-total strong, .light-metric-card > strong, .movem
 .account-link { display: inline-flex; align-items: center; gap: 4px; color: var(--blue); font-size: 10px; font-weight: 700; text-decoration: none; }
 .account-note { color: #8295a8; font-family: "IBM Plex Mono", monospace; font-size: 9px; }
 .account-loading { display: flex; min-height: 280px; align-items: center; justify-content: center; color: #7f92a6; font-size: 12px; }
+.account-gate-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 15px; }
+.account-gate-actions .outline-button { padding: 9px 12px; }
+.account-provider-note { display: flex; max-width: 550px; gap: 9px; margin: 17px auto 0; border: 1px solid #d8e6f4; border-radius: 8px; background: #f4f9ff; padding: 11px 13px; color: #5c7892; text-align: left; }
+.account-provider-note svg { flex: 0 0 auto; margin-top: 1px; color: var(--blue); }
+.account-provider-note p { margin: 0; font-size: 10px; line-height: 1.5; }
 .watchlist-heading { align-items: flex-end; margin-bottom: 17px; }
 .watchlist-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .light-watch-card { border: 1px solid var(--line); border-radius: 9px; background: var(--surface); padding: 15px 16px 13px; box-shadow: 0 2px 8px rgba(35, 52, 77, 0.025); transition: border-color 180ms var(--ease-out), transform 180ms var(--ease-out), box-shadow 180ms var(--ease-out); }
@@ -335,6 +344,9 @@ h1, h2, .brand-wordmark, .hero-total strong, .light-metric-card > strong, .movem
   .header-actions { gap: 3px; }
   .global-search { display: none; }
   .header-button { padding: 8px 9px; }
+  .header-create { padding: 8px 9px; }
+  .auth-entry .header-create { font-size: 0; }
+  .auth-entry .header-create::after { content: "+"; font-family: "Sora", sans-serif; font-size: 15px; line-height: 11px; }
   .market-page { padding: 26px 15px 38px; }
   .market-hero { align-items: flex-start; flex-direction: column; gap: 20px; }
   .market-hero h1 { font-size: 28px; }

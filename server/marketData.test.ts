@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizeBinancePairs, normalizeCoinbasePairs, normalizeCoins, selectMovers } from "./marketData";
+import { compactSparkline, normalizeBinancePairs, normalizeCoinbasePairs, normalizeCoins, selectMovers } from "./marketData";
 
 describe("market data normalization", () => {
   it("normalizes global coin records and selects the requested top movers", () => {
@@ -31,5 +31,14 @@ describe("market data normalization", () => {
     ]);
 
     expect(pairs.map((pair) => pair.symbol)).toEqual(["BTC-USDC", "ETH-USD"]);
+  });
+
+  it("downsamples dense seven-day series while keeping their endpoints", () => {
+    const series = Array.from({ length: 168 }, (_, index) => index);
+    const compact = compactSparkline(series, 32);
+
+    expect(compact).toHaveLength(32);
+    expect(compact[0]).toBe(0);
+    expect(compact.at(-1)).toBe(167);
   });
 });

@@ -1,5 +1,6 @@
 import { ENV } from "./_core/env";
 import { getEducationalScreening } from "./coinResearch";
+import { createStaleWhileRevalidateCache } from "./marketCache";
 
 type CoinGeckoDetailResponse = {
   id: string;
@@ -32,8 +33,7 @@ type CoinGeckoDetailResponse = {
   last_updated?: string;
 };
 
-const detailCache = new Map<string, { expiresAt: number; value: CoinGeckoDetailResponse }>();
-const CACHE_MS = 55_000;
+const detailCache = createStaleWhileRevalidateCache<CoinGeckoDetailResponse>({ freshMs: 180_000, staleMs: 15 * 60_000 });
 
 function finite(value: number | null | undefined) {
   return typeof value === "number" && Number.isFinite(value) ? value : 0;
@@ -44,17 +44,14 @@ function plainText(value?: string) {
 }
 
 async function getLiveCoinDetail(coinId: string) {
-  const cached = detailCache.get(coinId);
-  if (cached && cached.expiresAt > Date.now()) return cached.value;
-  if (!ENV.coingeckoDemoApiKey) throw new Error("CoinGecko provider is not configured");
-
-  const response = await fetch(`https://api.coingecko.com/api/v3/coins/${encodeURIComponent(coinId)}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=true`, {
-    headers: { accept: "application/json", "x-cg-demo-api-key": ENV.coingeckoDemoApiKey },
+  return detailCache.get(coinId, async () => {
+    if (!ENV.coingeckoDemoApiKey) throw new Error("CoinGecko provider is not configured");
+    const response = await fetch(`https://api.coingecko.com/api/v3/coins/${encodeURIComponent(coinId)}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=true`, {
+      headers: { accept: "application/json", "x-cg-demo-api-key": ENV.coingeckoDemoApiKey }, signal: AbortSignal.timeout(9_000),
+    });
+    if (!response.ok) throw new Error(`Coin detail is temporarily unavailable (${response.status})`);
+    return (await response.json()) as CoinGeckoDetailResponse;
   });
-  if (!response.ok) throw new Error(`Coin detail is temporarily unavailable (${response.status})`);
-  const value = (await response.json()) as CoinGeckoDetailResponse;
-  detailCache.set(coinId, { value, expiresAt: Date.now() + CACHE_MS });
-  return value;
 }
 
 export async function getCoinDetail(coinId: string) {
