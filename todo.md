@@ -63,3 +63,10 @@
 - [x] Verify successful OAuth sign-in, the signed-in account page, saved-asset status, and sign-out procedure coverage.
 - [x] Reconfirm the fresh signed-out account gate and authenticated project-preview account page, with saved-asset status and tested logout procedure, after the final dense-market refinement.
 - [x] Finalize delivery with manual browser OAuth login verification deferred by user choice; retain signed-out browser and automated logout coverage.
+
+## Bold Editorial Research Expansion
+
+- [x] Strengthen the visual system with a clear, responsive bold display hierarchy for primary market and research content.
+- [x] Expand the Learn hub with detailed original research topic cards and structured educational explanations.
+- [x] Add linked research detail routes with readable summaries, key concepts, risk context, and links back to live market views.
+- [x] Verify bold text contrast, research navigation, desktop/mobile layout, tests, and production build before delivery.
