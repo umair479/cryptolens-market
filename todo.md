@@ -81,3 +81,16 @@
 - [x] Preserve a recently refreshed market snapshot during the active server process through startup prewarming and stale-while-revalidate caching.
 - [x] Add explicit live-data freshness messaging so users understand when a cached market snapshot is being refreshed.
 - [x] Reverify the project-preview signed-in account interface and saved-asset status after the new onboarding copy changes; manual browser OAuth click-through remains deferred by owner choice.
+
+## Search, Expanded Market Coverage, and Navigation Repair
+
+- [x] Diagnose and fix the header search so a query reliably filters or opens matching live coins.
+- [x] Expand the live market universe to approximately 600 assets using cached, rate-limit-aware paged provider data.
+- [x] Keep ranking pagination, search results, mover boards, and coin detail navigation working with the expanded universe.
+- [x] Repair every footer link so it resolves to a specific internal market, research, account, screening, or provider destination.
+- [x] Validate desktop/mobile search, at least 500 loaded assets, pagination, individual link destinations, tests, and production build.
+- [x] Exercise live header search results and verify selecting a coin opens the matching detail route.
+- [x] Verify repaired footer links and anchors resolve to their intended live-ranking, research, screening, and provider destinations.
+- [x] Verify the expanded search, pagination, and footer navigation are usable on a mobile viewport.
+- [x] Make the global header search visibly usable at the phone breakpoint and verify selecting a result there.
+- [x] Exercise mobile ranking pagination controls and confirm the selected ranking page changes without horizontal overflow.

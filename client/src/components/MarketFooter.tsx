@@ -4,8 +4,8 @@ const mark = "/manus-storage/cryptolens-mark_3a6b7471.png";
 
 const columns = [
   { title: "Explore", links: [["Markets", "/"], ["Categories", "/categories"], ["Exchanges", "/exchanges"], ["Saved assets", "/watchlist"]] },
-  { title: "Research", links: [["Learning hub", "/learn"], ["Market methodology", "/learn"], ["Data sources", "/exchanges"], ["Islamic-ethics screen", "/learn"]] },
-  { title: "Product", links: [["Live rankings", "/"], ["Coin detail", "/coin/bitcoin"], ["Watchlist", "/watchlist"], ["Provider status", "/exchanges"]] },
+  { title: "Research", links: [["Learning hub", "/learn"], ["Market methodology", "/research/market-cap-in-context"], ["Data sources", "/research/liquidity-and-price-discovery"], ["Islamic-ethics screen", "/coin/bitcoin#islamic-ethics-screen"]] },
+  { title: "Product", links: [["Live rankings", "/#live-rankings"], ["Coin detail", "/coin/bitcoin"], ["Watchlist", "/watchlist"], ["Provider status", "/exchanges#provider-status"]] },
 ] as const;
 
 export function MarketFooter() {
