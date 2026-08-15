@@ -8,7 +8,7 @@ import { startLogin } from "@/const";
 import { formatCompactUsd, formatPercent, formatUpdated, formatUsd } from "@/lib/marketFormat";
 import { trpc } from "@/lib/trpc";
 
-type LiveCoin = { id: string; rank: number; symbol: string; name: string; image?: string; price: number; marketCap: number; volume: number; change1h: number | null; change24h: number; change7d: number | null; sparkline: number[] };
+type LiveCoin = { id: string; rank: number; symbol: string; name: string; price: number; marketCap: number; volume: number; change1h: number | null; change24h: number; change7d: number | null; sparkline: number[] };
 type Board = "all" | "gainers" | "decliners" | "watchlist";
 type Segment = "all" | "large" | "mid" | "volume";
 type CategoryOption = { id: string; name: string };
@@ -36,7 +36,7 @@ function ChangeValue({ value }: { value: number | null }) {
 }
 
 function CoinGlyph({ coin, small = false }: { coin: LiveCoin; small?: boolean }) {
-  return <Link href={`/coin/${coin.id}`} className={`coin-glyph ${small ? "coin-glyph-small" : ""}`} aria-label={`Open ${coin.name} details`}>{coin.image ? <img src={coin.image} alt="" /> : coin.symbol.slice(0, 1)}</Link>;
+  return <Link href={`/coin/${coin.id}`} className={`coin-glyph ${small ? "coin-glyph-small" : ""}`} aria-label={`Open ${coin.name} details`}>{coin.symbol.slice(0, 1)}</Link>;
 }
 
 function MoverCard({ title, subtitle, coins, tone, onOpen }: { title: string; subtitle: string; coins: LiveCoin[]; tone: "positive" | "negative"; onOpen: () => void }) {

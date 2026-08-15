@@ -116,3 +116,10 @@
 - [x] Change live market-data caching and client polling from 120 seconds to 20 seconds without forcing a full-page reload.
 - [x] Keep provider requests deduplicated and stale-data handling intact at the faster cadence.
 - [x] Verify the displayed refresh messaging, timing configuration, tests, and production build.
+
+## Portable Visual Asset Audit
+
+- [x] Inventory every image, icon, favicon, manifest entry, and CSS image reference; classify local, external, and deployment-managed sources.
+- [x] Replace non-portable project-owned visual assets with local project equivalents where deployment constraints allow, and update all consuming paths.
+- [x] Verify rendered desktop and mobile assets, type checks, tests, and production build after the reference migration.
+- [x] Document the final asset locations and every updated path, including any runtime provider images that must remain network-fetched live data.

@@ -62,7 +62,7 @@ h1, h2, .brand-wordmark, .hero-total strong, .light-metric-card > strong, .movem
 .header-inner { display: flex; height: 68px; max-width: 1320px; align-items: center; gap: 32px; margin: 0 auto; padding: 0 28px; }
 .brand-lockup { display: flex; min-width: 180px; align-items: center; gap: 9px; }
 .brand-mark-box { display: inline-flex; height: 31px; width: 31px; align-items: center; justify-content: center; border: 1px solid #d9e0e8; border-radius: 8px; background: #ffffff; box-shadow: 0 2px 6px rgba(26, 42, 65, 0.06); }
-.brand-mark-box img { height: 22px; width: 22px; object-fit: contain; }
+.brand-mark { height: 22px; width: 22px; }
 .brand-wordmark { color: #13243a; font-size: 15px; font-weight: 700; letter-spacing: -0.055em; }
 .brand-tagline { margin-left: -3px; color: #8190a3; font-size: 8px; letter-spacing: 0.13em; }
 .main-nav { display: flex; align-items: center; gap: 3px; }

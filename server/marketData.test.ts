@@ -9,11 +9,12 @@ describe("market data normalization", () => {
 
   it("normalizes global coin records and selects the requested top movers", () => {
     const coins = normalizeCoins([
-      { id: "one", symbol: "one", name: "One", current_price: 3, market_cap: 9_000_000, market_cap_rank: 2, total_volume: 2_000_000, price_change_percentage_24h: 4.5, sparkline_in_7d: { price: [1, 2, 3] } },
+      { id: "one", symbol: "one", name: "One", image: "https://provider.example/one.png", current_price: 3, market_cap: 9_000_000, market_cap_rank: 2, total_volume: 2_000_000, price_change_percentage_24h: 4.5, sparkline_in_7d: { price: [1, 2, 3] } },
       { id: "two", symbol: "two", name: "Two", current_price: 2, market_cap: 12_000_000, market_cap_rank: 1, total_volume: 3_000_000, price_change_percentage_24h: -6.2, sparkline_in_7d: { price: [3, 2, 1] } },
     ]);
 
     expect(coins[0]).toMatchObject({ symbol: "ONE", price: 3, change24h: 4.5 });
+    expect(coins[0]).not.toHaveProperty("image");
     expect(selectMovers(coins, "gainers").map((coin) => coin.symbol)).toEqual(["ONE"]);
     expect(selectMovers(coins, "decliners").map((coin) => coin.symbol)).toEqual(["TWO"]);
   });

@@ -66,7 +66,6 @@ export async function getCoinDetail(coinId: string) {
       id: live.id,
       symbol: live.symbol.toUpperCase(),
       name: live.name,
-      image: live.image?.large ?? live.image?.small ?? null,
       description: plainText(live.description?.en).slice(0, 900),
       categories: (live.categories ?? []).slice(0, 5),
       homepage,
