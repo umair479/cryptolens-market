@@ -94,3 +94,9 @@
 - [x] Verify the expanded search, pagination, and footer navigation are usable on a mobile viewport.
 - [x] Make the global header search visibly usable at the phone breakpoint and verify selecting a result there.
 - [x] Exercise mobile ranking pagination controls and confirm the selected ranking page changes without horizontal overflow.
+
+## Bold Market Typography Refresh
+
+- [x] Strengthen display headings, section titles, table identities, controls, and primary figures with a clear bold market-tracker hierarchy.
+- [x] Preserve readable supporting text, responsive density, original CryptoLens branding, and accessible contrast.
+- [x] Verify desktop and mobile typography visually, then run type checks, tests, and a production build.
