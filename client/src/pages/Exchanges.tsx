@@ -7,7 +7,7 @@ import { trpc } from "@/lib/trpc";
 function PairChange({ value }: { value: number }) { const positive = value >= 0; return <span className={positive ? "change-value is-positive" : "change-value is-negative"}>{positive ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}{formatPercent(value)}</span>; }
 
 export default function Exchanges() {
-  const exchanges = trpc.market.exchanges.useQuery(undefined, { staleTime: 45_000, refetchInterval: 60_000, retry: 1 });
+  const exchanges = trpc.market.exchanges.useQuery(undefined, { staleTime: 15_000, refetchInterval: 20_000, retry: 1 });
   const binancePairs = exchanges.data?.binance.pairs ?? [];
   const coinbasePairs = exchanges.data?.coinbase.pairs ?? [];
   return <div className="light-app-shell"><MarketHeader active="exchanges" /><main className="data-page">

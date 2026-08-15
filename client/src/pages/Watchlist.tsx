@@ -11,7 +11,7 @@ import { trpc } from "@/lib/trpc";
 export default function Watchlist() {
   const { isAuthenticated, loading } = useAuth();
   const saved = trpc.watchlist.list.useQuery(undefined, { enabled: isAuthenticated, retry: false });
-  const market = trpc.market.snapshot.useQuery(undefined, { enabled: isAuthenticated, staleTime: 45_000, refetchInterval: 60_000, retry: false });
+  const market = trpc.market.snapshot.useQuery(undefined, { enabled: isAuthenticated, staleTime: 15_000, refetchInterval: 20_000, retry: false });
   const utils = trpc.useUtils();
   const remove = trpc.watchlist.remove.useMutation({ onSuccess: () => utils.watchlist.list.invalidate() });
   const savedIds = useMemo(() => new Set(saved.data?.map((entry) => entry.coinId) ?? []), [saved.data]);

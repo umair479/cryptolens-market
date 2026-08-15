@@ -96,9 +96,9 @@ export default function Home() {
   const [categoryId, setCategoryId] = useState(() => typeof window === "undefined" ? "all" : new URLSearchParams(window.location.search).get("category") || "all");
   const [page, setPage] = useState(1);
   const { isAuthenticated } = useAuth();
-  const market = trpc.market.snapshot.useQuery(undefined, { staleTime: 45_000, refetchInterval: 60_000, retry: 1 });
-  const categories = trpc.market.categories.useQuery(undefined, { staleTime: 60_000, retry: false });
-  const categoryMarket = trpc.market.categoryCoins.useQuery({ categoryId }, { enabled: categoryId !== "all", staleTime: 45_000, retry: false });
+  const market = trpc.market.snapshot.useQuery(undefined, { staleTime: 15_000, refetchInterval: 20_000, retry: 1 });
+  const categories = trpc.market.categories.useQuery(undefined, { staleTime: 15_000, refetchInterval: 20_000, retry: false });
+  const categoryMarket = trpc.market.categoryCoins.useQuery({ categoryId }, { enabled: categoryId !== "all", staleTime: 15_000, refetchInterval: 20_000, retry: false });
   const savedAssets = trpc.watchlist.list.useQuery(undefined, { enabled: isAuthenticated, staleTime: 30_000, retry: false });
   const utils = trpc.useUtils();
   const addToWatchlist = trpc.watchlist.add.useMutation({ onSuccess: () => utils.watchlist.list.invalidate() });

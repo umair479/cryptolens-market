@@ -1,7 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { compactSparkline, normalizeBinancePairs, normalizeCoinbasePairs, normalizeCoins, selectMovers } from "./marketData";
+import { compactSparkline, MARKET_REFRESH_MS, MARKET_REFRESH_SECONDS, normalizeBinancePairs, normalizeCoinbasePairs, normalizeCoins, selectMovers } from "./marketData";
 
 describe("market data normalization", () => {
+  it("uses a 20-second fresh cache window and exposes matching refresh metadata", () => {
+    expect(MARKET_REFRESH_MS).toBe(20_000);
+    expect(MARKET_REFRESH_SECONDS).toBe(20);
+  });
+
   it("normalizes global coin records and selects the requested top movers", () => {
     const coins = normalizeCoins([
       { id: "one", symbol: "one", name: "One", current_price: 3, market_cap: 9_000_000, market_cap_rank: 2, total_volume: 2_000_000, price_change_percentage_24h: 4.5, sparkline_in_7d: { price: [1, 2, 3] } },

@@ -110,3 +110,9 @@
 - [x] Verify a phone-sized internal route starts at the top of the destination page.
 - [x] Verify phone-sized footer anchors land on live rankings, provider status, and the Islamic-ethics screen.
 - [x] Ensure same-page footer anchors, including Live rankings on the market page, scroll to their target section after the link is clicked.
+
+## 20-Second Live Refresh
+
+- [x] Change live market-data caching and client polling from 120 seconds to 20 seconds without forcing a full-page reload.
+- [x] Keep provider requests deduplicated and stale-data handling intact at the faster cadence.
+- [x] Verify the displayed refresh messaging, timing configuration, tests, and production build.

@@ -33,7 +33,7 @@ export default function CoinDetail() {
   const [, params] = useRoute<{ id: string }>("/coin/:id");
   const coinId = params?.id ?? "";
   const { isAuthenticated } = useAuth();
-  const detail = trpc.market.coin.useQuery({ id: coinId }, { enabled: Boolean(coinId), staleTime: 45_000, refetchInterval: 60_000, retry: false });
+  const detail = trpc.market.coin.useQuery({ id: coinId }, { enabled: Boolean(coinId), staleTime: 15_000, refetchInterval: 20_000, retry: false });
   const utils = trpc.useUtils();
   const saved = trpc.watchlist.list.useQuery(undefined, { enabled: isAuthenticated, staleTime: 30_000, retry: false });
   const addToWatchlist = trpc.watchlist.add.useMutation({ onSuccess: () => utils.watchlist.list.invalidate() });

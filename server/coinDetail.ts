@@ -33,7 +33,7 @@ type CoinGeckoDetailResponse = {
   last_updated?: string;
 };
 
-const detailCache = createStaleWhileRevalidateCache<CoinGeckoDetailResponse>({ freshMs: 180_000, staleMs: 15 * 60_000 });
+const detailCache = createStaleWhileRevalidateCache<CoinGeckoDetailResponse>({ freshMs: 20_000, staleMs: 15 * 60_000 });
 
 function finite(value: number | null | undefined) {
   return typeof value === "number" && Number.isFinite(value) ? value : 0;
@@ -92,6 +92,6 @@ export async function getCoinDetail(coinId: string) {
       lastUpdated: live.last_updated ?? null,
     },
     screening,
-    source: { name: "CoinGecko Demo API", refreshedAt: new Date().toISOString(), refreshSeconds: 60 },
+    source: { name: "CoinGecko Demo API", refreshedAt: new Date().toISOString(), refreshSeconds: 20 },
   };
 }
