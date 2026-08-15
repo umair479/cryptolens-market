@@ -100,3 +100,13 @@
 - [x] Strengthen display headings, section titles, table identities, controls, and primary figures with a clear bold market-tracker hierarchy.
 - [x] Preserve readable supporting text, responsive density, original CryptoLens branding, and accessible contrast.
 - [x] Verify desktop and mobile typography visually, then run type checks, tests, and a production build.
+
+## Navigation Scroll Position
+
+- [x] Make each internal page navigation start at the top of its destination instead of retaining the previous lower scroll position.
+- [x] Preserve explicit footer and in-page anchors so they open at the intended named section.
+- [x] Verify desktop and mobile page navigation, anchor destinations, type checks, tests, and the production build.
+- [x] Run the production build after the route-scroll update.
+- [x] Verify a phone-sized internal route starts at the top of the destination page.
+- [x] Verify phone-sized footer anchors land on live rankings, provider status, and the Islamic-ethics screen.
+- [x] Ensure same-page footer anchors, including Live rankings on the market page, scroll to their target section after the link is clicked.
