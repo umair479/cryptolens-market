@@ -18,6 +18,17 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "react-vendor": ["react", "react-dom"],
+          "ui-vendor": ["lucide-react", "framer-motion"],
+          "query-vendor": ["@tanstack/react-query", "@trpc/client", "@trpc/react-query"],
+          "chart-vendor": ["recharts"],
+        },
+      },
+    },
   },
   server: {
     host: true,
