@@ -1,7 +1,3 @@
-import { eq } from "drizzle-orm";
-import { coinResearch } from "../drizzle/schema";
-import { getDb } from "./db";
-
 export type EducationalScreening = {
   status: "needs_scholar_review" | "research_incomplete" | "higher_risk_flags";
   assetBacking: string;
@@ -29,21 +25,6 @@ export function educationalScreeningFallback(coinName: string): EducationalScree
 }
 
 export async function getEducationalScreening(coinId: string, coinName: string): Promise<EducationalScreening> {
-  const db = await getDb();
-  if (!db) return educationalScreeningFallback(coinName);
-
-  const [record] = await db.select().from(coinResearch).where(eq(coinResearch.coinId, coinId)).limit(1);
-  if (!record) return educationalScreeningFallback(coinName);
-
-  return {
-    status: record.screeningStatus,
-    assetBacking: record.assetBacking || educationalScreeningFallback(coinName).assetBacking,
-    utilitySummary: record.utilitySummary || educationalScreeningFallback(coinName).utilitySummary,
-    interestExposure: record.interestExposure,
-    speculationExposure: record.speculationExposure,
-    transparencyState: record.transparencyState,
-    evidenceNote: record.evidenceNote || educationalScreeningFallback(coinName).evidenceNote,
-    sourceUrl: record.sourceUrl ?? null,
-    updatedAt: record.updatedAt,
-  };
+  // Database disabled for public access - always return fallback
+  return educationalScreeningFallback(coinName);
 }

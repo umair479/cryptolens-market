@@ -21,30 +21,40 @@
 }
 
 :root {
-  --radius: 0.7rem;
-  --page: #f5f7fa;
+  --radius: 0.75rem;
+  --page: #f4f6fa;
   --surface: #ffffff;
   --surface-soft: #f8fafc;
-  --ink: #0c1a2a;
-  --ink-strong: #091525;
-  --muted: #64748b;
-  --faint: #94a3b8;
-  --line: #e3e9f0;
-  --line-strong: #d3dce7;
+  --ink: #0a1628;
+  --ink-strong: #060f1e;
+  --muted: #4a5e78;
+  --faint: #7a8fa8;
+  --line: #dde4ee;
+  --line-strong: #c8d3e2;
   --blue: #3861fb;
   --blue-soft: #eef2ff;
   --teal: #16a673;
-  --teal-soft: #eaf8f2;
-  --coral: #d95d5d;
+  --teal-soft: #e8f8f2;
+  --coral: #d94f4f;
   --coral-soft: #fff0ef;
-  --gold: #d99a2b;
+  --gold: #c98a1a;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  /* Typography scale — bigger for laptop screens */
+  --text-xs:   11px;
+  --text-sm:   13px;
+  --text-base: 15px;
+  --text-md:   16px;
+  --text-lg:   18px;
+  --text-xl:   21px;
+  --text-2xl:  26px;
+  --text-3xl:  32px;
+  --text-4xl:  42px;
 }
 
 @layer base {
   * { @apply border-border outline-ring/50; }
-  html { background: var(--page); }
-  body { @apply bg-background text-foreground; margin: 0; min-width: 320px; font-family: "DM Sans", sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  html { background: var(--page); font-size: 16px; }
+  body { @apply bg-background text-foreground; margin: 0; min-width: 320px; font-family: "DM Sans", sans-serif; font-size: var(--text-base); font-weight: 400; line-height: 1.6; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
   button, input { font: inherit; }
   button:not(:disabled), [role="button"]:not([aria-disabled="true"]), a[href], input[type="checkbox"]:not(:disabled) { cursor: pointer; }
 }

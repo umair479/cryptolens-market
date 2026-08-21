@@ -1,17 +1,81 @@
-import { useAuth } from "@/_core/hooks/useAuth";
-import { startLogin } from "@/const";
 import { MarketFooter } from "@/components/MarketFooter";
 import { MarketHeader } from "@/components/MarketHeader";
-import { trpc } from "@/lib/trpc";
-import { Bookmark, ChevronRight, CircleUserRound, LogOut, ShieldCheck } from "lucide-react";
+import { TrendingUp, BarChart3, Globe, ChevronRight } from "lucide-react";
 import { Link } from "wouter";
 
 export default function Account() {
-  const { user, loading, isAuthenticated, logout } = useAuth();
-  const saved = trpc.watchlist.list.useQuery(undefined, { enabled: isAuthenticated, staleTime: 30_000, retry: false });
-
-  if (loading) return <div className="light-app-shell"><MarketHeader active="account" /><main className="data-page"><section className="account-loading">Checking your secure account session…</section><MarketFooter /></main></div>;
-  if (!isAuthenticated) return <div className="light-app-shell"><MarketHeader active="account" /><main className="data-page"><section className="empty-watchlist account-gate"><CircleUserRound size={29} /><div className="page-overline">CRYPTOLENS ACCOUNT</div><h1>Create an account to save your market workspace.</h1><p>A secure Manus session lets you save assets, retain your watchlist, and access account controls without exposing market-provider credentials.</p><div className="account-gate-actions"><button className="header-create" onClick={startLogin}>Create account</button><button className="outline-button" onClick={startLogin}>I already have an account</button></div><div className="account-provider-note"><ShieldCheck size={15} /><p><strong>Email confirmation is managed by the identity provider.</strong> CryptoLens does not collect passwords or send confirmation emails, and the current provider session does not expose a separate email-verified flag.</p></div><Link href="/" className="text-link">Return to live markets <ChevronRight size={14} /></Link></section><MarketFooter /></main></div>;
-
-  return <div className="light-app-shell"><MarketHeader active="account" /><main className="data-page account-page"><section className="account-hero"><div className="account-avatar-large">{user?.name?.slice(0, 1).toUpperCase() || "A"}</div><div><div className="page-overline"><span className="status-dot-light" /> AUTHENTICATED MARKET WORKSPACE</div><h1>{user?.name || "Your account"}</h1><p>{user?.email || "Signed in with Manus"}</p></div><button className="outline-button" onClick={() => void logout()}><LogOut size={14} /> Sign out</button></section><section className="account-grid"><article className="account-card"><div className="account-card-head"><div><span className="card-overline">SAVED ASSETS</span><h2>{saved.data?.length ?? 0} assets</h2></div><Bookmark size={20} /></div><p>Saved coins remain tied to this account and can be managed from your private watchlist.</p><Link href="/watchlist" className="account-link">Open saved assets <ChevronRight size={14} /></Link></article><article className="account-card"><div className="account-card-head"><div><span className="card-overline">IDENTITY STATUS</span><h2>{user?.email ? "Email shared" : "Profile only"}</h2></div><ShieldCheck size={20} /></div><p>Account confirmation occurs with the identity provider before CryptoLens receives a session. This app does not see or store an email-verification flag.</p><span className="account-note">Login method: {user?.loginMethod || "Manus"}</span></article><article className="account-card"><div className="account-card-head"><div><span className="card-overline">NEXT ACTION</span><h2>Build your watchlist</h2></div><CircleUserRound size={20} /></div><p>Open a coin detail page, then use Save to add it to this signed-in account.</p><Link href="/coin/bitcoin" className="account-link">Open Bitcoin detail <ChevronRight size={14} /></Link></article></section><MarketFooter /></main></div>;
+  return (
+    <div className="light-app-shell">
+      <MarketHeader active="account" />
+      <main className="data-page account-page">
+        <section className="account-hero">
+          <div className="account-avatar-large">
+            <Globe size={32} />
+          </div>
+          <div>
+            <div className="page-overline">
+              <span className="status-dot-light" /> PUBLIC MARKET ACCESS
+            </div>
+            <h1>Welcome to CryptoLens Market</h1>
+            <p>Free and open cryptocurrency market data for everyone</p>
+          </div>
+        </section>
+        
+        <section className="account-grid">
+          <article className="account-card">
+            <div className="account-card-head">
+              <div>
+                <span className="card-overline">LIVE DATA</span>
+                <h2>Real-time prices</h2>
+              </div>
+              <TrendingUp size={20} />
+            </div>
+            <p>
+              Access live cryptocurrency prices, market caps, and trading volumes 
+              from trusted sources like CoinGecko and Binance.
+            </p>
+            <Link href="/" className="account-link">
+              View live markets <ChevronRight size={14} />
+            </Link>
+          </article>
+          
+          <article className="account-card">
+            <div className="account-card-head">
+              <div>
+                <span className="card-overline">MARKET ANALYSIS</span>
+                <h2>Professional insights</h2>
+              </div>
+              <BarChart3 size={20} />
+            </div>
+            <p>
+              Explore detailed coin information, price charts, and market analysis
+              without any registration or account requirements.
+            </p>
+            <Link href="/coin/bitcoin" className="account-link">
+              Explore Bitcoin <ChevronRight size={14} />
+            </Link>
+          </article>
+          
+          <article className="account-card">
+            <div className="account-card-head">
+              <div>
+                <span className="card-overline">EXCHANGE DATA</span>
+                <h2>Trading platforms</h2>
+              </div>
+              <Globe size={20} />
+            </div>
+            <p>
+              Compare cryptocurrency exchanges, trading volumes, and market data
+              across multiple platforms instantly.
+            </p>
+            <Link href="/exchanges" className="account-link">
+              View exchanges <ChevronRight size={14} />
+            </Link>
+          </article>
+        </section>
+        
+        <MarketFooter />
+      </main>
+    </div>
+  );
 }

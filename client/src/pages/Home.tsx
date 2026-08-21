@@ -1,14 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowDownRight, ArrowRight, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, CircleHelp, Filter, LineChart, RefreshCw, Search, Star, TrendingUp } from "lucide-react";
 import { Link } from "wouter";
-import { useAuth } from "@/_core/hooks/useAuth";
 import { MarketFooter } from "@/components/MarketFooter";
 import { MarketHeader } from "@/components/MarketHeader";
-import { startLogin } from "@/const";
 import { formatCompactUsd, formatPercent, formatUpdated, formatUsd } from "@/lib/marketFormat";
 import { trpc } from "@/lib/trpc";
 
-type LiveCoin = { id: string; rank: number; symbol: string; name: string; price: number; marketCap: number; volume: number; change1h: number | null; change24h: number; change7d: number | null; sparkline: number[] };
+type LiveCoin = { id: string; rank: number; symbol: string; name: string; image: string | null; price: number; marketCap: number; volume: number; change1h: number | null; change24h: number; change7d: number | null; sparkline: number[] };
 type Board = "all" | "gainers" | "decliners" | "watchlist";
 type Segment = "all" | "large" | "mid" | "volume";
 type CategoryOption = { id: string; name: string };
@@ -29,14 +27,32 @@ function Sparkline({ values, tone = "positive", large = false }: { values: numbe
   return <svg className={large ? "sparkline sparkline-large" : "sparkline"} viewBox="0 0 100 32" role="img" aria-label={`${tone} trend sparkline`}><path d={path} fill="none" stroke={stroke} strokeWidth={large ? "1.7" : "1.45"} vectorEffect="non-scaling-stroke" strokeLinecap="round" /></svg>;
 }
 
+function CoinLogo({ coin, size = 28 }: { coin: LiveCoin; size?: number }) {
+  const [imgError, setImgError] = useState(false);
+  if (coin.image && !imgError) {
+    return (
+      <Link href={`/coin/${coin.id}`} aria-label={`Open ${coin.name} details`} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+        <img src={coin.image} alt={coin.name} width={size} height={size} loading="lazy" style={{ borderRadius: "50%", objectFit: "contain", display: "block" }} onError={() => setImgError(true)} />
+      </Link>
+    );
+  }
+  const colors = ["#3861fb","#16a673","#d99a2b","#d95d5d","#7c4dff","#00bcd4"];
+  const bg = colors[coin.symbol.charCodeAt(0) % colors.length];
+  return (
+    <Link href={`/coin/${coin.id}`} className="coin-glyph" aria-label={`Open ${coin.name} details`} style={{ background: bg, borderColor: bg, color: "#fff", flexShrink: 0, width: size, height: size, fontSize: size * 0.43 }}>
+      {coin.symbol.slice(0, 1)}
+    </Link>
+  );
+}
+
+function CoinGlyph({ coin, small = false }: { coin: LiveCoin; small?: boolean }) {
+  return <CoinLogo coin={coin} size={small ? 24 : 28} />;
+}
+
 function ChangeValue({ value }: { value: number | null }) {
   if (value === null) return <span className="change-value is-neutral">—</span>;
   const positive = value >= 0;
   return <span className={positive ? "change-value is-positive" : "change-value is-negative"}>{positive ? <ArrowUpRight size={13} /> : <ArrowDownRight size={13} />}{formatPercent(value)}</span>;
-}
-
-function CoinGlyph({ coin, small = false }: { coin: LiveCoin; small?: boolean }) {
-  return <Link href={`/coin/${coin.id}`} className={`coin-glyph ${small ? "coin-glyph-small" : ""}`} aria-label={`Open ${coin.name} details`}>{coin.symbol.slice(0, 1)}</Link>;
 }
 
 function MoverCard({ title, subtitle, coins, tone, onOpen }: { title: string; subtitle: string; coins: LiveCoin[]; tone: "positive" | "negative"; onOpen: () => void }) {
@@ -83,7 +99,7 @@ function RankingSurface({ board, setBoard, categoryId, setCategoryId, categories
     <div className="table-controls"><div className="asset-tabs" role="tablist" aria-label="Market ranking filters">{([ ["all", "All assets"], ["gainers", "Top gainers"], ["decliners", "Top decliners"], ["watchlist", "Saved"] ] as const).map(([value, label]) => <button key={value} className={board === value ? "is-selected" : ""} onClick={() => setBoard(value)} role="tab" aria-selected={board === value}>{label}</button>)}</div><div className="control-actions"><label className="table-search"><Search size={15} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder="Search coins" aria-label="Search coins in market rankings" /></label><label className="sort-control"><span>Sort</span><select value={sortKey} onChange={(event) => setSortKey(event.target.value as typeof sortKey)}><option value="rank">Rank</option><option value="marketCap">Market cap</option><option value="volume">Volume</option><option value="change1h">1h change</option><option value="change24h">24h change</option><option value="change7d">7d change</option></select></label><button className="filter-button" onClick={() => setDescending((current) => !current)}>{descending ? "High → low" : "Low → high"}</button><div className="table-column-control"><button className="filter-button" onClick={() => setColumnMenuOpen((current) => !current)} aria-expanded={columnMenuOpen}>Columns <ChevronDown size={14} /></button>{columnMenuOpen && <div className="column-menu"><label><input type="checkbox" checked={visibleColumns.hour} onChange={() => toggleColumn("hour")} /> 1h change</label><label><input type="checkbox" checked={visibleColumns.week} onChange={() => toggleColumn("week")} /> 7d change</label><label><input type="checkbox" checked={visibleColumns.volume} onChange={() => toggleColumn("volume")} /> 24h volume</label></div>}</div></div></div>
     <div className="market-segments" aria-label="Market segments">{([ ["all", "All market"], ["large", "Top 25"], ["mid", "Ranks 26–100"], ["volume", "Volume leaders"] ] as const).map(([value, label]) => <button key={value} className={segment === value ? "is-selected" : ""} onClick={() => setSegment(value)}>{label}</button>)}</div>
     <div className="category-filter-row" aria-label="Live market categories"><span>Category</span><button className={categoryId === "all" ? "is-selected" : ""} onClick={() => setCategoryId("all")}>All</button>{categories.slice(0, 7).map((category) => <button key={category.id} className={categoryId === category.id ? "is-selected" : ""} onClick={() => setCategoryId(category.id)}>{category.name}</button>)}</div>
-    <div className="ranking-table-wrap"><div className="ranking-table ranking-table-dense" role="table" aria-label="Live cryptocurrency rankings"><div className="ranking-row ranking-row-dense ranking-header" style={gridStyle} role="row"><span>#</span><span>Name</span><span>Price</span>{visibleColumns.hour && <span>1h</span>}<span>24h</span>{visibleColumns.week && <span>7d</span>}<span>Market cap</span>{visibleColumns.volume && <span>Volume 24h</span>}<span>Last 7 days</span><span /></div>{loading ? Array.from({ length: 12 }).map((_, index) => <div className="ranking-row ranking-row-dense ranking-loading" style={gridStyle} key={index}>{Array.from({ length: 10 - Number(!visibleColumns.hour) - Number(!visibleColumns.week) - Number(!visibleColumns.volume) }, (_, cell) => <span key={cell} />)}</div>) : sortedCoins.map((coin) => <div className="ranking-row ranking-row-dense" style={gridStyle} role="row" key={coin.id}><span className="rank-number">{coin.rank}</span><div className="ranking-asset"><button className={`star-button ${savedIds.has(coin.id) ? "is-saved" : ""}`} onClick={() => onToggleWatchlist(coin)} aria-label={`${savedIds.has(coin.id) ? "Remove" : "Add"} ${coin.name} ${savedIds.has(coin.id) ? "from" : "to"} watchlist`} aria-pressed={savedIds.has(coin.id)}><Star size={15} fill={savedIds.has(coin.id) ? "currentColor" : "none"} /></button><CoinGlyph coin={coin} /><Link href={`/coin/${coin.id}`} className="ranking-asset-link"><strong>{coin.name}</strong><span>{coin.symbol}</span></Link></div><strong className="ranking-price">{formatUsd(coin.price)}</strong>{visibleColumns.hour && <ChangeValue value={coin.change1h} />}<ChangeValue value={coin.change24h} />{visibleColumns.week && <ChangeValue value={coin.change7d} />}<span className="ranking-value">{formatCompactUsd(coin.marketCap)}</span>{visibleColumns.volume && <span className="ranking-value volume-value">{formatCompactUsd(coin.volume)}</span>}<Sparkline values={coin.sparkline} tone={coin.change24h < 0 ? "negative" : "positive"} /><Link href={`/coin/${coin.id}`} className="row-menu" aria-label={`Open ${coin.name} details`}><ChevronRight size={16} /></Link></div>)}{!loading && !coins.length && <div className="empty-ranking"><Search size={18} /><strong>No matching live assets</strong><span>Try a new ticker, clear the search, or switch the table filter.</span><button className="clear-button" onClick={() => { setSearch(""); setBoard("all"); setSegment("all"); setCategoryId("all"); }}>Clear filters</button></div>}</div></div>
+    <div className="ranking-table-wrap"><div className="ranking-table ranking-table-dense" role="table" aria-label="Live cryptocurrency rankings"><div className="ranking-row ranking-row-dense ranking-header" style={gridStyle} role="row"><span>#</span><span>Name</span><span>Price</span>{visibleColumns.hour && <span>1h</span>}<span>24h</span>{visibleColumns.week && <span>7d</span>}<span>Market cap</span>{visibleColumns.volume && <span>Volume 24h</span>}<span>Last 7 days</span><span /></div>{loading ? Array.from({ length: 12 }).map((_, index) => <div className="ranking-row ranking-row-dense ranking-loading" style={gridStyle} key={index}>{Array.from({ length: 10 - Number(!visibleColumns.hour) - Number(!visibleColumns.week) - Number(!visibleColumns.volume) }, (_, cell) => <span key={cell} />)}</div>) : sortedCoins.map((coin) => <div className="ranking-row ranking-row-dense" style={gridStyle} role="row" key={coin.id}><span className="rank-number">{coin.rank}</span><div className="ranking-asset"><button className={`star-button ${savedIds.has(coin.id) ? "is-saved" : ""}`} onClick={() => onToggleWatchlist(coin)} aria-label={`${savedIds.has(coin.id) ? "Remove" : "Add"} ${coin.name} ${savedIds.has(coin.id) ? "from" : "to"} watchlist`} aria-pressed={savedIds.has(coin.id)}><Star size={15} fill={savedIds.has(coin.id) ? "currentColor" : "none"} /></button><CoinLogo coin={coin} size={28} /><Link href={`/coin/${coin.id}`} className="ranking-asset-link"><strong>{coin.name}</strong><span>{coin.symbol}</span></Link></div><strong className="ranking-price">{formatUsd(coin.price)}</strong>{visibleColumns.hour && <ChangeValue value={coin.change1h} />}<ChangeValue value={coin.change24h} />{visibleColumns.week && <ChangeValue value={coin.change7d} />}<span className="ranking-value">{formatCompactUsd(coin.marketCap)}</span>{visibleColumns.volume && <span className="ranking-value volume-value">{formatCompactUsd(coin.volume)}</span>}<Sparkline values={coin.sparkline} tone={coin.change24h < 0 ? "negative" : "positive"} /><Link href={`/coin/${coin.id}`} className="row-menu" aria-label={`Open ${coin.name} details`}><ChevronRight size={16} /></Link></div>)}{!loading && !coins.length && <div className="empty-ranking"><Search size={18} /><strong>No matching live assets</strong><span>Try a new ticker, clear the search, or switch the table filter.</span><button className="clear-button" onClick={() => { setSearch(""); setBoard("all"); setSegment("all"); setCategoryId("all"); }}>Clear filters</button></div>}</div></div>
     <div className="ranking-pagination"><span>Showing {filteredCount ? (page - 1) * PAGE_SIZE + 1 : 0}–{Math.min(page * PAGE_SIZE, filteredCount)} of {filteredCount} assets</span><div><button onClick={() => setPage(Math.max(1, page - 1))} disabled={page === 1} aria-label="Previous page"><ChevronLeft size={15} /></button>{Array.from({ length: Math.min(totalPages, 4) }, (_, index) => index + 1).map((pageNumber) => <button key={pageNumber} onClick={() => setPage(pageNumber)} className={page === pageNumber ? "is-current" : ""}>{pageNumber}</button>)}{totalPages > 4 && <span>…</span>}<button onClick={() => setPage(Math.min(totalPages, page + 1))} disabled={page === totalPages} aria-label="Next page"><ChevronRight size={15} /></button></div></div>
     <div className="table-summary"><span><span className="status-dot-light" /> Data through {sourceLabel}</span><span>{loading ? "Refreshing cached market data…" : `Live snapshot • Page ${page} of ${totalPages}`}</span></div>
   </section>;
@@ -95,16 +111,17 @@ export default function Home() {
   const [segment, setSegment] = useState<Segment>("all");
   const [categoryId, setCategoryId] = useState(() => typeof window === "undefined" ? "all" : new URLSearchParams(window.location.search).get("category") || "all");
   const [page, setPage] = useState(1);
-  const { isAuthenticated } = useAuth();
+  // No authentication needed - public access only
   const market = trpc.market.snapshot.useQuery(undefined, { staleTime: 15_000, refetchInterval: 20_000, retry: 1 });
   const categories = trpc.market.categories.useQuery(undefined, { staleTime: 15_000, refetchInterval: 20_000, retry: false });
   const categoryMarket = trpc.market.categoryCoins.useQuery({ categoryId }, { enabled: categoryId !== "all", staleTime: 15_000, refetchInterval: 20_000, retry: false });
-  const savedAssets = trpc.watchlist.list.useQuery(undefined, { enabled: isAuthenticated, staleTime: 30_000, retry: false });
+  const savedAssets = trpc.watchlist.list.useQuery(undefined, { enabled: false, staleTime: 30_000, retry: false }); // Disabled - no auth
   const utils = trpc.useUtils();
-  const addToWatchlist = trpc.watchlist.add.useMutation({ onSuccess: () => utils.watchlist.list.invalidate() });
-  const removeFromWatchlist = trpc.watchlist.remove.useMutation({ onSuccess: () => utils.watchlist.list.invalidate() });
+  // Disabled watchlist functionality for public access
+  const addToWatchlist = { mutate: () => {}, isPending: false };
+  const removeFromWatchlist = { mutate: () => {}, isPending: false };
   const data = market.data;
-  const savedIds = useMemo(() => new Set(savedAssets.data?.map((entry) => entry.coinId) ?? []), [savedAssets.data]);
+  const savedIds = useMemo(() => new Set<string>(), []); // Empty set - no saved items in public mode
 
   const filteredCoins = useMemo(() => {
     const liveCategoryCoins = categoryId === "all" ? null : categoryMarket.data?.coins ?? [];
@@ -126,7 +143,10 @@ export default function Home() {
   useEffect(() => { if (page > totalPages) setPage(totalPages); }, [page, totalPages]);
 
   function selectBoard(next: Board) { setBoard(next); document.getElementById("live-rankings")?.scrollIntoView({ behavior: "smooth" }); }
-  function toggleWatchlist(coin: LiveCoin) { if (!isAuthenticated) { startLogin(); return; } if (savedIds.has(coin.id)) removeFromWatchlist.mutate({ coinId: coin.id }); else addToWatchlist.mutate({ coinId: coin.id }); }
+  function toggleWatchlist(coin: LiveCoin) { 
+    // No authentication - show message instead
+    console.log('Watchlist feature disabled in public mode');
+  }
 
   return <div className="light-app-shell"><MarketHeader active="market" search={search} onSearchChange={setSearch} watchCount={savedIds.size} /><div className="market-ticker"><div className="ticker-inner"><span><strong>Global provider</strong> {market.isError ? "Unavailable" : data?.sources.global ?? "Connecting"}</span><span><strong>Binance spot</strong> {data?.binance.status === "live" ? "Live" : "Unavailable"}</span><span><strong>Refresh</strong> {data?.sources.refreshSeconds ?? 60}s</span><span className="ticker-updated">{market.isError ? "Provider error" : `Updated ${formatUpdated(data?.overview.updatedAt)}`}</span></div></div><main className="market-page">
     <section className="market-hero"><div><div className="page-overline"><span className="status-dot-light" /> LIVE MARKET OVERVIEW <span>•</span> MULTI-PROVIDER</div><h1>Crypto market, <em>in context.</em></h1><p>Global rankings, period comparisons, and separate exchange signals in one read-only market workspace.</p></div><div className="hero-total"><span>Tracked market cap</span><strong>{formatCompactUsd(data?.overview.totalMarketCap ?? 0)}</strong><small>{data ? "Computed from the current market universe" : "Connecting to live provider"}</small></div></section>
